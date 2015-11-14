@@ -15,8 +15,10 @@ var config = {
         html: './src/*.html',
         js: './src/**/*.js',
         images : './src/images/*',
-        css: ['node_modules/bootstrap/dist/css/bootstrap.min.css',
-            'node_modules/bootstrap/dist/css/bootstrap-theme.min.css'
+        css: [
+            'node_modules/bootstrap/dist/css/bootstrap.min.css',
+            'node_modules/bootstrap/dist/css/bootstrap-theme.min.css',
+            'node_modules/toastr/build/toastr.css'
         ],
         dist: './dist',
         mainJs: './src/main.js'
