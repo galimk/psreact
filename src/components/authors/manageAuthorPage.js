@@ -9,17 +9,33 @@ var toastr = require('toastr');
 
 var ManageAuthorPage = React.createClass({
     mixins: [
-      Router.Navigation
+        Router.Navigation
     ],
+
+    statics: {
+        willTransitionFrom: function (transition, component) {
+            if (component.state.dirty && !confirm('Leave without saving?')) {
+                transition.abort();
+            }
+        }
+    },
 
     getInitialState: function () {
         return {
             author: {id: '', firstName: '', lastName: ''},
-            errors: {}
+            errors: {},
+            dirty: false
         };
     },
 
-    authorFormIsValid: function() {
+    componentWillMount: function () {
+        var authorId = this.props.params.id; // magic magic!
+        if (authorId) {
+            this.setState({author: AuthorApi.getAuthorById(authorId)});
+        }
+    },
+
+    authorFormIsValid: function () {
         var formIsValid = true;
 
         this.state.errors = {}; // clear any previous errors
@@ -40,6 +56,7 @@ var ManageAuthorPage = React.createClass({
     },
 
     setAuthorState: function (event) {
+        this.setState({dirty: true});
         var field = event.target.name;
         var value = event.target.value;
         this.state.author[field] = value;
@@ -54,6 +71,7 @@ var ManageAuthorPage = React.createClass({
         }
 
         AuthorApi.saveAuthor(this.state.author);
+        this.setState({dirty: false});
         toastr.success('pure awesomness just happened!');
         this.transitionTo('authors');
     },
