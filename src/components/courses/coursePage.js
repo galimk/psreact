@@ -6,7 +6,7 @@ var Link = require('react-router').Link;
 var CourseStore = require('../../stores/courseStore');
 var CourseActions = require('../../actions/courseActions');
 
-var CoursePage = React.creacteClass({
+var CoursePage = React.createClass({
     getInitialState: function() {
         return {
             courses: CourseStore.getAllCourses()
@@ -14,7 +14,7 @@ var CoursePage = React.creacteClass({
     },
 
     _onChange: function () {
-        this.setState({authors: CourseStore.getAllAuthors()});
+        this.setState({authors: CourseStore.getAllCourses()});
     },
 
     componentWillMount: function () {
