@@ -23,7 +23,7 @@ var CourseForm = React.createClass({
                     label="Title"
                     value={this.props.course.title}
                     onChange={this.props.onChange}
-                    error={this.props.errors.firstName}
+                    error={this.props.errors.title}
                     />
 
                 <Input

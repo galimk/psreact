@@ -24,7 +24,7 @@ var ManageCoursePage = React.createClass({
 
     getInitialState: function () {
         return {
-            course: {id: '', title: '', category: '', selectedAuthor: 0},
+            course: {id: '', title: '', category: '', selectedAuthor: 0, watchHref: ''},
             authors: [],
             errors: {},
             dirty: false
@@ -58,7 +58,7 @@ var ManageCoursePage = React.createClass({
         this.setState({dirty: true});
         var field = event.target.name;
         var value = event.target.value;
-        if (field == 'author') {
+        if (field === 'author') {
             this.state.course.selectedAuthor = value;
         } else {
             this.state.course[field] = value;
@@ -97,15 +97,13 @@ var ManageCoursePage = React.createClass({
         }
 
         if (this.state.course.category.length < 3) {
-            this.state.errors.course = 'Category name must be at least 3 characters';
+            this.state.errors.category = 'Category name must be at least 3 characters';
             formIsValid = false;
         }
 
         if (this.state.course.watchHref.length < 4) {
             this.state.errors.watchHref = 'Watch link must be provided';
         }
-
-        //_.find(this.state.authors, { 'id' : this.state.course.selectedAuthor });
 
         var authorIdIsCorrect = _.some(this.state.authors, {'id': this.state.course.selectedAuthor});
         if (!authorIdIsCorrect) {
